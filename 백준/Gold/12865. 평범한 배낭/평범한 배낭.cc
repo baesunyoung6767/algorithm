@@ -1,29 +1,26 @@
 #include <iostream>
 #include <algorithm>
-#define KMAX 100001
-#define NMAX 101
 using namespace std;
 
 int main() {
-	int N, K;
-	int weight[NMAX];
-	int value[NMAX];
-	int dp[NMAX][KMAX] = { 0, };
+	int N = 0, K = 0; // 물품의 수, 버틸 수 있는 무게
+	int value[101] = { 0 }; // 가치
+	int weight[101] = { 0 }; // 무게
+	int dp[101][100001] = { 0 };
+
 	cin >> N >> K;
 
 	for (int i = 1; i <= N; i++) cin >> weight[i] >> value[i];
 
-	for (int limit = 1; limit <= K; limit++) {
-		for (int cnt = 1; cnt <= N; cnt++) {
-			if (weight[cnt] > limit)
-				dp[cnt][limit] = dp[cnt-1][limit];
-			else 
-				dp[cnt][limit] = max(dp[cnt - 1][limit - weight[cnt]] + value[cnt], dp[cnt - 1][limit]);
+	for (int i = 1; i <= K; i++) { // 무게
+		for (int j = 1; j <= N; j++) { // 물건
+			if (weight[j] > i) dp[j][i] = dp[j - 1][i]; // 현재 물건의 무게가 기준(i)보다 클 경우
+			else {
+				dp[j][i] = max(dp[j - 1][i], dp[j - 1][i - weight[j]] + value[j]); // 현재 물건을 넣을 때랑 안 넣을 때 가치 비교
+			}
 		}
 	}
 
 	cout << dp[N][K] << '\n';
 	
-	return 0;
 }
-

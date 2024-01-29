@@ -1,58 +1,54 @@
-#include <stdio.h>
+#include <iostream>
+#include <algorithm>
+#define MAX 101
+using namespace std;
 
-int a[50][2];
+int N;
+char arr[MAX][2];
 
-void preorder(int x)
-{
-	if (x == -1)
-		return;
-	printf("%c", x + 'A');
-	preorder(a[x][0]);
-	preorder(a[x][1]);
+// 전위 순회
+void pre(int tmp) {
+	if (tmp + 'A' == '.') return;
+	char output = tmp + 'A';
+	cout << output;
+	pre(arr[tmp][0] - 'A');
+	pre(arr[tmp][1] - 'A');
 }
 
-void inorder(int x)
-{
-	if (x == -1)
-		return;
-	inorder(a[x][0]);
-	printf("%c", x + 'A');
-	inorder(a[x][1]);
+// 중위 순회
+void in(int tmp) {
+	if (tmp + 'A' == '.') return;
+	in(arr[tmp][0] - 'A');
+	char output = tmp + 'A';
+	cout << output;
+	in(arr[tmp][1] - 'A');
 }
 
-void postorder(int x)
-{
-	if (x == -1)
-		return;
-	postorder(a[x][0]);
-	postorder(a[x][1]);
-	printf("%c", x + 'A');
+// 후위 순회
+void post(int tmp) {
+	if (tmp + 'A' == '.') return;
+	post(arr[tmp][0] - 'A');
+	post(arr[tmp][1] - 'A');
+	char output = tmp + 'A';
+	cout << output;
 }
 
-int main()
-{
-	int n;
-	char x, y, z;
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(0);
 
-	scanf("%d", &n);
-	getchar();
-	for (int i = 1; i <= n; i++)
-	{
-		scanf("%c %c %c", &x, &y, &z);
-		getchar();
-		x = x - 'A';
-		if (y == '.') a[x][0] = -1;
-		else a[x][0] = y - 'A';
-		
-		if (z == '.') a[x][1] = -1;
-		else a[x][1] = z - 'A';
+	cin >> N;
+
+	char node, left, right;
+	for (int i = 0; i < N; i++) {
+		cin >> node >> left >> right;
+		arr[node - 'A'][0] = left;
+		arr[node - 'A'][1] = right;
 	}
-	preorder(0);
-	printf("\n");
-	inorder(0);
-	printf("\n");
-	postorder(0);
-	printf("\n");
-
-	return 0;
+	pre(0);
+	cout << '\n';
+	in(0);
+	cout << '\n';
+	post(0);
+	cout << '\n';
 }

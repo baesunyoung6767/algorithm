@@ -1,38 +1,27 @@
-//package algoTest;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
-public class Main {
+public class Main{
 	public static void main(String[] args) throws Exception {
-//		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-//		StringBuilder sb = new StringBuilder();
-//		
-//		int N = Integer.parseInt(in.readLine());
-//		int[] arr = new int[N];
-//	
-//		String[] readLine = in.readLine().split(" ");
-//		for(int i = 0; i<N; i++) {
-//			arr[i] = readLine[i].charAt(0) - '0';
-//		}
-//		
-//		int personNum = Integer.parseInt(in.readLine());
-		Scanner sc = new Scanner(System.in);
-		int N = sc.nextInt();
-		int[] arr = new int[N];
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		
-		for(int t = 0; t<N; t++) arr[t] = sc.nextInt();
-		int personNum = sc.nextInt();
+		int N = Integer.parseInt(in.readLine());
+		int[] arr = new int[N];
+	
+		String[] readLine = in.readLine().split(" ");
+		for(int t = 0; t<N; t++) {
+			arr[t] = readLine[t].charAt(0) - '0';
+		}
+		
+		int personNum = Integer.parseInt(in.readLine());
 		int gender;
 		int number;
 		for(int t = 0; t<personNum; t++) {
-//			String[] personRead = in.readLine().split(" ");
-//			gender = personRead[0].charAt(0) - '0';
-//			number = personRead[1].charAt(0) - '0';
-			gender = sc.nextInt();
-			number = sc.nextInt();
+			String[] personRead = in.readLine().split(" ");
+			gender = personRead[0].charAt(0) - '0';
+			number = Integer.parseInt((personRead[1]));
 			
 			if(gender == 1) { // 남학생인 경우
 				for(int i = 0; i<N; i++) {
@@ -55,17 +44,12 @@ public class Main {
 		}
 		
 		
-//		for(int i = 0; i<N; i++) {
-//			sb.append(arr[i] + " ");
-//			if((i+1) % 20 == 0) sb.append("\n");
-//		}
-//		sb.append("\n");
-//		
-//		System.out.println(sb);
-		
 		for(int t = 0; t<N; t++) {
-			System.out.print(arr[t] + " ");
-			if((t+1) % 20 == 0) System.out.println();
+			sb.append(arr[t] + " ");
+			if((t+1) % 20 == 0) sb.append("\n");
 		}
+		sb.append("\n");
+		
+		System.out.println(sb);
 	}
 }

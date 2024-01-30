@@ -9,7 +9,6 @@ int map[MAX][MAX] = { 0 };
 int x[] = { 1, 0, -1, 0 };
 int y[] = { 0, -1, 0, 1 };
 int visited[MAX][MAX][2] = { 0 };
-//int output = 987654321;
 
 //반례
 //6 5
@@ -44,7 +43,7 @@ int bfs() {
 
 			if (ny < 0 || nx < 0 || ny >= N || nx >= M) continue;
 
-			if (map[ny][nx] == 1 && oneCheck == 0 && visited[ny][nx][oneCheck] == 0) {
+			if (map[ny][nx] == 1 && oneCheck == 0) {
 				q.push({ {ny, nx} , {oneCheck + 1, result + 1} });
 				visited[ny][nx][oneCheck+ 1] = 1;
 			}

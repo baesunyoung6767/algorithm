@@ -1,31 +1,40 @@
 #include <iostream>
 using namespace std;
-
-int n, r, c;
+int N, r, c;
 int result = 0;
+int output = 0;
 
-void Z(int y, int x, int size) {
-	if (y == r && x == c) {
-		cout << result << '\n';
-		return;
+// 1 2
+// 3 4
+
+void checkMap(int n, int x, int y) {
+	if (x == c && y == r) {
+		output = result;
 	}
 
-	if (r < y + size && r >= y && c < x + size && c >= x) {
-		Z(y, x, size / 2);
-		Z(y, x + size / 2, size / 2);
-		Z(y + size / 2, x, size / 2);
-		Z(y + size / 2, x + size / 2, size / 2);
+	if (r >= y && c >= x && r < y + n && c < x + n) { // 범위 안에 r,c가 존재하면
+
+		// 1
+		checkMap(n / 2, x, y);
+
+		// 2
+		checkMap(n / 2, x + n / 2, y);
+
+		// 3
+		checkMap(n / 2, x, y + n / 2);
+
+		// 4
+		checkMap(n / 2, x + n / 2, y + n / 2);
 	}
 	else {
-		result += size * size;
+		result += n * n;
 	}
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+	cin >> N >> r >> c;
+	
+	checkMap((1<<N)*(1<<N), 0, 0);
 
-	cin >> n >> r >> c;
-	Z(0, 0, (1 << n));
-	return 0;
+	cout << output << '\n';
 }

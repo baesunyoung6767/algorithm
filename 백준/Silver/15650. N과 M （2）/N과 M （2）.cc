@@ -1,31 +1,25 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
-int visited[9];
-int arr[9];
-int n, m;
-void bt(int cnt, int idx)
-{
-	if (cnt == m)
-	{
-		for (int i = 0; i < m; i++)
-			printf("%d ", arr[i]);
-		printf("\n");
+int N, M;
+int result[101] = { 0 };
+
+void checkFuc(int cnt, int start) {
+	if (cnt == M) {
+		for (int i = 0; i < M; i++) cout << result[i] << " ";
+		cout << '\n';
 		return;
 	}
-	for (int i = idx; i <= n; i++)
-	{
-		if (visited[i] == 0)
-		{
-			arr[cnt] = i;
-			visited[i] = 1;
-			bt(cnt + 1 , i + 1);
-			visited[i] = 0;
-		}
+
+	for (int i = start; i <= N; i++) {
+		result[cnt] = i;
+		checkFuc(cnt + 1, i + 1);
 	}
 }
 
-int main(void)
-{
-	scanf("%d %d", &n, &m);
-	bt(0,1);
+int main() {
+	cin >> N >> M;
+
+	checkFuc(0, 1);
+	
 }

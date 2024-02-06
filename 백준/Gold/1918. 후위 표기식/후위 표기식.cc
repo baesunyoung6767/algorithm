@@ -12,7 +12,7 @@ int main() {
 		if (input[i] >= 'A' && input[i] <= 'Z') cout << input[i];
 		else if (input[i] == '(') s.push(input[i]);
 		else if (input[i] == '*' || input[i] == '/') {
-			if (!s.empty() && (s.top() == '*' || s.top() == '/')) {
+			while (!s.empty() && input[i] != '(' && (s.top() == '*' || s.top() == '/')) {
 				cout << s.top();
 				s.pop();
 			}

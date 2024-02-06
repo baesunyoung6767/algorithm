@@ -1,27 +1,25 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
+#define MAX 1000001
 using namespace std;
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
+	int N;
+	int arr[MAX] = { 0 };
+	cin >> N;
 
-	int n, tmp;
-	cin >> n;
 	vector<int> v;
-
-	while(n--) {
+	int tmp;
+	cin >> tmp;
+	v.push_back(tmp);
+	for (int i = 1; i < N; i++) {
 		cin >> tmp;
-		if (v.empty() || v.back() < tmp) {
-			v.push_back(tmp);
-		}
+		if (v.back() < tmp) v.push_back(tmp);
 		else {
-			auto it = lower_bound(v.begin(), v.end(), tmp);
-			*it = tmp;
+			*lower_bound(v.begin(), v.end(), tmp) = tmp;
 		}
 	}
 
 	cout << v.size() << '\n';
-
 }

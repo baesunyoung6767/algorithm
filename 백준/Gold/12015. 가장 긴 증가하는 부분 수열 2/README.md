@@ -30,3 +30,6 @@
 
  <p>첫째 줄에 수열 A의 가장 긴 증가하는 부분 수열의 길이를 출력한다.</p>
 
+### 개념 
+ <p>Lower bound : 선형 구조의 부분 탐색법 - target 값보다 같거나 큰 첫 번째 위치</p>
+ <p>Lower bound는 이상, Upper bound는 초과</p>

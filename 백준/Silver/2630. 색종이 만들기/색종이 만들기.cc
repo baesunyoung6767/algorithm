@@ -1,48 +1,42 @@
 #include <iostream>
-
+#define MAX 128
 using namespace std;
 
-int n;
-int paper[128][128];
-int blue, white;
+// 1 2 
+// 3 4
+int N;
+int arr[MAX][MAX] = { 0 };
+int blue = 0, white = 0; // 1, 0
+void check(int n, int y, int x) {
+	bool isDiv = false;
 
-void solve(int y, int x, int size)
-{
-	int check = paper[y][x];
-	for (int i = y; i < y + size; i++) {
-		for (int j = x; j < x + size; j++) {
-			if (check == 0 && paper[i][j] == 1)
-				check = 2;
-			else if (check == 1 && paper[i][j] == 0)
-				check = 2;
-			if (check == 2) {
-				solve(y, x, size / 2);
-				solve(y, x + size / 2, size / 2);
-				solve(y + size / 2, x, size / 2);
-				solve(y + size / 2, x + size / 2, size / 2);
-				return;
+	for (int i = y; i < n + y; i++) {
+		for (int j = x; j < n + x; j++) {
+			if (arr[i][j] != arr[y][x]) {
+				isDiv = true;
+				check(n / 2, y, x);
+				check(n / 2, y, x + n / 2);
+				check(n / 2, y + n / 2, x);
+				check(n / 2, y + n / 2, x + n / 2);
+				break;
 			}
 		}
+		if (isDiv) break;
 	}
-	if (check == 0)
-		white++;
-	else
-		blue++;
+	if (!isDiv) {
+		if (arr[y][x] == 1) blue++;
+		else white++;
+	}
 }
 
-int main()
-{
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+int main() {
+	cin >> N;
 
-	cin >> n;
-	for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-			cin >> paper[i][j];
-
-	solve(0, 0, n);
-	cout << white << '\n';
-	cout << blue << '\n';
-	return 0;
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < N; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	check(N, 0, 0);
+	cout << white << '\n' << blue << '\n';
 }

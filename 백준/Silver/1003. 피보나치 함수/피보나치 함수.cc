@@ -1,27 +1,27 @@
-#include <stdio.h>
+#include <iostream>
+using namespace std;
 
-void fibo(int n)
-{
-	int last, cur, result;
-	cur = 1, last = result = 0;
-	
-	for (int i = 0; i <= n; i++)
-	{
-		last = cur;
-		cur = result;
-		result = last + cur;
+int T, N;
+int dp0[41] = { 0 };
+int dp1[41] = { 0 };
+
+void fibo() {
+	dp0[0] = 1;
+	dp1[1] = 1;
+
+	for (int i = 2; i <= N; i++) {
+		dp0[i] = dp0[i - 1] + dp0[i - 2];
+		dp1[i] = dp1[i - 1] + dp1[i - 2];
 	}
-	printf("%d %d\n", last, cur);
 }
 
-int main()
-{
-	int n, m;
-	scanf("%d", &n);
+int main() {
+	cin >> T;
 
-	for (int i = 0; i < n; i++)
-	{
-		scanf("%d", &m);
-		fibo(m);
+	for (int i = 0; i < T; i++) {
+		cin >> N;
+		fibo();
+		cout << dp0[N] << " " << dp1[N] << '\n';
 	}
+	return 0;
 }

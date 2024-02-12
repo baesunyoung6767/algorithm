@@ -1,37 +1,44 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
-
 using namespace std;
 
-int n, m;
-int arr[10];
-int num[10];
-int check[10];
+int N, M;
+vector<int> v;
+int result[101] = { 0 };
+int visited[101] = { 0 };
+// 1 7 7 9
 
-void seq(int len) {
-	if (len == m) {
-		for (int i = 0; i < m; i++) cout << arr[i] << ' ';
+
+// 중복 제거
+void output(int cnt) {
+	if (cnt == M) {
+		for (int i = 0; i < M; i++) {
+			cout << result[i] << ' ';
+		}
 		cout << '\n';
-		return;
 	}
 
 	int last = 0;
-	for (int i = 0; i < n; i++) {
-		if (check[i] == 0 && num[i] != last) {
-			arr[len] = num[i];
-			last = arr[len];
-			check[i] = 1;
-			seq(len + 1);
-			check[i] = 0;
-		}
+	for (int i = 0; i < v.size(); i++) {
+		if (visited[i] == 1 || last == v[i]) continue;
+		result[cnt] = v[i];
+		last = v[i];
+		visited[i] = 1;
+		output(cnt + 1);
+		visited[i] = 0;
 	}
-	return;
 }
 
 int main() {
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) cin >> num[i];
-	sort(num, num + n);
-	seq(0);
-	return 0;
+	cin >> N >> M;
+
+	int tmp;
+	for (int i = 0; i < N; i++) {
+		cin >> tmp;
+		v.push_back(tmp);
+	}
+	sort(v.begin(), v.end());
+	output(0);
+    return 0;
 }

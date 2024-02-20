@@ -16,27 +16,33 @@ int main() {
 	}
 
 	sort(arr, arr + N);
-
-	int left = 0;
-	int right = N - 1;
-	resultA = arr[left];
-	resultB = arr[right];
-	int minResult = abs(arr[left] + arr[right]);
-
-	while (left < right) {
-		int temp = arr[left] + arr[right];
-
-		if (minResult > abs(temp)) {
-			minResult = abs(temp);
-			resultA = arr[left];
-			resultB = arr[right];
-		}
-
-		if (temp < 0) {
-			left++;
+	int start = 0;
+	int end = N-1;
+    resultA = arr[start];
+    resultB = arr[end];
+    int minResult = abs(arr[start] + arr[end]);
+    
+	while (start < end) {
+		int temp = arr[start] + arr[end];
+		int output = abs(temp);
+		if (temp == 0) {
+			resultA = arr[start];
+			resultB = arr[end];
+			break;
 		}
 		else {
-			right--;
+			if (minResult > output) {
+				minResult = output;
+				resultA = arr[start];
+				resultB = arr[end];
+			}
+
+			if (temp < 0) {
+				start++;
+			}
+			else {
+				end--;
+			}
 		}
 	}
 

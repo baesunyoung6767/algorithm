@@ -82,7 +82,7 @@ void castle(int depth, int start) {
 
 	for (int i = start; i < M; i++) {
 		check[depth] = i;
-		castle(depth + 1, start + 1);
+		castle(depth + 1, i + 1);
 	}
 }
 

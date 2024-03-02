@@ -1,17 +1,15 @@
 #include <iostream>
 #include <queue>
-
 #define MAX 101
 using namespace std;
 
 int N, M;
 int arr[MAX][MAX] = { 0 };
 int visited[MAX][MAX] = { 0 };
+int target = 0;
+
 int x[] = { 1, 0, -1, 0 };
 int y[] = { 0, 1, 0, -1 };
-int total = 0;
-int result = 0;
-int hour = 0;
 
 void init() {
 	for (int i = 0; i < N; i++) {
@@ -21,11 +19,11 @@ void init() {
 	}
 }
 
-int bfs() {
-	int cnt = 0;
+int check() {
 	queue<pair<int, int>> q;
-	q.push({ 0, 0 });
+	q.push({ 0,0 });
 	visited[0][0] = 1;
+	int temp = 0;
 
 	while (!q.empty()) {
 		int cy = q.front().first;
@@ -37,40 +35,41 @@ int bfs() {
 			int nx = cx + x[i];
 
 			if (ny < 0 || nx < 0 || ny >= N || nx >= M || visited[ny][nx] == 1) continue;
-			if (arr[ny][nx] == 1) {
-				arr[ny][nx] = 0;
-				cnt++;
+
+			if (arr[ny][nx] == 0) {
+				q.push({ ny, nx });
 			}
-			else if (arr[ny][nx] == 0) {
-				q.push({ ny,nx });
+			else if (arr[ny][nx] == 1) {
+				arr[ny][nx] = 0;
+				temp++;
 			}
 			visited[ny][nx] = 1;
 		}
 	}
-
-	return cnt;
+	return temp;
 }
-
+	
 int main() {
 	cin >> N >> M;
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			cin >> arr[i][j];
-			if (arr[i][j] == 1) total++;
-		}
+			if (arr[i][j] == 1) target++;
+ 		}
 	}
-	
+
+	int result = 0, left = 0;
 	while (1) {
-		hour++;
-		int tmp = bfs();
-		total -= tmp;
-		if (total <= 0) {
-			result = tmp;
+		result++;
+		int temp = check();
+		target -= temp;
+		if (target == 0) {
+			left = temp;
 			break;
 		}
 		init();
 	}
 
-	cout << hour << '\n' << result << '\n';
+	cout << result << '\n' << left << '\n';
 }

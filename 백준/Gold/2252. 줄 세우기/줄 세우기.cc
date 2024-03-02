@@ -1,51 +1,41 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#define MAX 32001
 using namespace std;
 
 int N, M;
-vector<int> v[MAX];
-int inDegree[MAX] = { 0 };
-int result[MAX] = { 0 };
+vector<int> v[32001];
+int len[32001] = { 0 };
+queue<int> q;
 
-void graph() {
-	queue<int> q;
-
-	// 진입 차수 0 찾기
+void check() {
 	for (int i = 1; i <= N; i++) {
-		if (inDegree[i] == 0) q.push(i);
+		if (len[i] == 0) q.push(i);
 	}
 
-	for (int i = 1; i <= N; i++) {
-		int nNum = q.front();
+	while (!q.empty()) {
+		int num = q.front();
+		cout << num << ' ';
 		q.pop();
 
-		// 진입 차수 감소
-		for (int i = 0; i < v[nNum].size(); i++) {
-			inDegree[v[nNum][i]]--;
-			if (inDegree[v[nNum][i]] == 0) q.push(v[nNum][i]);
+		for (int i = 0; i < v[num].size(); i++) {
+			int next = v[num][i];
+			len[next]--;
+			if (len[next] == 0) q.push(v[num][i]);
 		}
-
-		// result에 결과 순서대로 값 넣기
-		result[i] = nNum;
 	}
+	cout << '\n';
 }
 
 int main() {
 	cin >> N >> M;
-
+	
 	int a, b;
 	for (int i = 0; i < M; i++) {
 		cin >> a >> b;
 		v[a].push_back(b);
-		inDegree[b] += 1;
+		len[b]++;
 	}
 
-	graph();
-
-	for (int i = 1; i <= N; i++) {
-		cout << result[i] << " ";
-	}
-	cout << '\n';
+	check();
 }

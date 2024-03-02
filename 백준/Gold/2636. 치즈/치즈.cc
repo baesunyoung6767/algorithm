@@ -61,7 +61,7 @@ int main() {
 		}
 	}
 	
-	while (total > 0) {
+	while (1) {
 		hour++;
 		int tmp = bfs();
 		total -= tmp;

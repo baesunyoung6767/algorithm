@@ -1,31 +1,35 @@
 #include <iostream>
-#include <string>
-#include <unordered_set>
-#include <vector>
 using namespace std;
 
-int N, result = 0;
-int roma[] = { 1,5,10,50 };
-int visited[10001];
+int N;
+int visited[1001] = { 0 };
+int selected[21] = { 0 };
+int arr[4] = { 1, 5, 10, 50 };
 
-void dfs(int cnt, int d, int total) {
+void check(int cnt, int start) {
 	if (cnt == N) {
-		if (visited[total] == 0) {
-			visited[total] = 1;
-			result++;
+		int sum = 0;
+		for (int i = 0; i < N; i++) {
+			sum += selected[i];
 		}
+		visited[sum] = 1;
 		return;
 	}
 
-	for (int i = d; i < 4; i++) {
-		dfs(cnt + 1, i, total + roma[i]);
+	for (int i = start; i < 4; i++) {
+		selected[cnt] = arr[i];
+		check(cnt + 1, i);
 	}
 }
 
 int main() {
 	cin >> N;
+	check(0, 0);
 
-	dfs(0, 0, 0);
+	int result = 0;
+	for (int i = 0; i < 1001; i++) {
+		if (visited[i] == 1) result++;
+	}
 	cout << result << '\n';
-
+	return 0;
 }

@@ -1,36 +1,34 @@
-#include <stdio.h>
+#include <iostream>
 #include <math.h>
-#define MAX 14
+#define MAX 15
+using namespace std;
 
-int chess[MAX] = { 0 };
-int N, count = 0;
-
-void DFS(int x)
-{
-	for (int i = 0; i < x; i++)
-	{
-		if ((abs(chess[x] - chess[i]) == abs(i - x)) || chess[i] == chess[x]) return;
+int N;
+int arr[MAX] = { 0 };
+int result = 0;
+void check(int cnt) {
+	for (int i = 0; i < cnt; i++) {
+		// 같은 열X 같은 행X 대각선 X
+		if (arr[i] == arr[cnt] || abs(i - cnt) == abs(arr[i] - arr[cnt])) return;
 	}
-	if (x == N - 1)
-	{
-		count++;
+
+	if (cnt == N - 1) {
+		result++;
 		return;
 	}
 
-	for (int i = 0; i < N; i++)
-	{
-		chess[x + 1] = i;
-		DFS(x + 1);
+	for (int i = 0; i < N; i++) { // 행 결정
+		arr[cnt + 1] = i;
+		check(cnt + 1);
 	}
 }
 
-int main()
-{
-	scanf("%d", &N);
-	for (int i = 0; i < N; i++)
-	{
-		chess[0] = i;
-		DFS(0);
+int main() {
+	cin >> N;
+
+	for (int i = 0; i < N; i++) {
+		arr[0] = i;
+		check(0);
 	}
-	printf("%d\n", count);
+	cout << result << '\n';
 }

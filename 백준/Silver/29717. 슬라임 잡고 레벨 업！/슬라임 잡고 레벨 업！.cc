@@ -12,7 +12,7 @@ int main() {
         long long exp = N * (N + 1) / 2; // n마리 처치 후 얻을 수 있는 경험치
 
         long long start = 1;
-        long long end = 1500000000;
+        long long end = 1000000000;
         long long mid = 0;
         long long result = 0;
         while (start <= end) {

@@ -14,6 +14,7 @@ void init() {
 	for (int i = 1; i <= N; i++) {
 		visited[i] = 0;
 	}
+    v.clear();
 }
 
 void check(int startNode, int node) {
@@ -22,13 +23,8 @@ void check(int startNode, int node) {
 			for (int i = 0; i < v.size(); i++) {
 				s.insert(v[i]);
 			}
-			v.clear();
-			return;
 		}
-		else {
-			v.clear();
-			return;
-		}
+		return;
 	}
 	else {
 		visited[node] = 1;

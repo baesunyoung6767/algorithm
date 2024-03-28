@@ -34,14 +34,14 @@ void move(int targetY, int targetX) {
 		int cy = q.front().first.first;
 		int cx = q.front().first.second;
 		int time = q.front().second;
-		
+		q.pop();
 		if (map[cy][cx] < weight && map[cy][cx] != 0 && eatTime == time) {
 			if (curY > cy || (curY == cy && curX > cx)) {
 				curY = cy; curX = cx; 
 				continue;
 			}
 		}
-		q.pop();
+		
 		for (int i = 0; i < 4; i++) {
 			int ny = cy + y[i];
 			int nx = cx + x[i];

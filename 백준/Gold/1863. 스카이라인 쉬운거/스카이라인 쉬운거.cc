@@ -19,11 +19,10 @@ int main() {
 	v.push_back(0);
 
 	for (int i = 0; i < v.size(); i++) {
-		while (!s.empty() && s.top() > v[i]) {
-			cnt++;
+		while (!s.empty() && s.top() >= v[i]) {
+			if(s.top() > v[i])cnt++;
 			s.pop();
 		}
-		if (!s.empty() && s.top() == v[i]) s.pop();
 		s.push(v[i]);
 	}
 	cout << cnt << '\n';

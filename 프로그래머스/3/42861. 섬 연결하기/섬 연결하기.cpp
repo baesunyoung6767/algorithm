@@ -25,7 +25,7 @@ int solution(int n, vector<vector<int>> costs) {
         int a = find(costs[i][0]);
         int b = find(costs[i][1]);
         int cost = costs[i][2];
-        
+
         if(a != b) {
             answer+=cost;
             parent[b] = a;

@@ -1,62 +1,62 @@
 #include <iostream>
 #include <queue>
 #include <algorithm>
-
 #define MAX 1001
 using namespace std;
 
-// 벽을 k개 까지 부수고 이동 가능
-int N, M, K;
-int arr[MAX][MAX] = { 0 };
+int N, M , K;
+int map[MAX][MAX] = { 0 };
 int visited[MAX][MAX][11] = { 0 };
 int x[] = { 1, 0, -1, 0 };
-int y[] = { 0, -1, 0, 1 };
+int y[] = { 0, 1, 0, -1 };
+int result = 987654321;
 
-int bfs() {
-    queue<pair<pair<int, int>, pair<int, int>>> q; // 행,열, 이동 거리, 지나온 벽 개수 (k개 넘으면 안됨)
-    q.push({ {0, 0}, {1, 0} });
-    visited[0][0][0] = 1;
+void bfs() {
+	queue<pair<pair<int, int>, pair<int, int>>> q;
+	q.push({ {0, 0}, {1, 0} }); // 위치, 이동 거리, 벽 부순 개수
+	visited[0][0][0] = 1;
 
-    while (!q.empty()) {
-        int cy = q.front().first.first;
-        int cx = q.front().first.second;
-        int dis = q.front().second.first;
-        int wCheck = q.front().second.second;
-        q.pop();
+	while (!q.empty()) {
+		int cy = q.front().first.first;
+		int cx = q.front().first.second;
+		int clen = q.front().second.first;
+		int wallCnt = q.front().second.second;
+		q.pop();
+		
+		if (cy == N-1 && cx == M-1) {
+			result = min(result, clen);
+			return;
+		}
 
-        if (cy == N - 1 && cx == M - 1) {
-            return dis;
-        }
+		for (int i = 0; i < 4; i++) {
+			int ny = cy + y[i];
+			int nx = cx + x[i];
 
-        for (int i = 0; i < 4; i++) {
-            int ny = cy + y[i];
-            int nx = cx + x[i];
-
-            if (ny < 0 || nx < 0 || ny >= N || nx >= M) continue;
-
-            if (arr[ny][nx] == 1 && wCheck < K && visited[ny][nx][wCheck - 1] == 0) {
-                q.push({ {ny, nx}, {dis + 1, wCheck + 1} });
-                visited[ny][nx][wCheck + 1] = 1;
-            }
-            if (arr[ny][nx] == 0 && visited[ny][nx][wCheck] == 0) {
-                q.push({ {ny, nx}, {dis + 1, wCheck } });
-                visited[ny][nx][wCheck] = 1;
-            }
-        }
-    }
-    return -1;
+			if (ny < 0 || nx < 0 || ny >= N || nx >= M) continue;
+			if (map[ny][nx] == 0 && visited[ny][nx][wallCnt] == 0) {
+				visited[ny][nx][wallCnt] = 1;
+				q.push({ {ny, nx}, {clen + 1, wallCnt} });
+			}
+			else if (map[ny][nx] == 1 && visited[ny][nx][wallCnt - 1] == 0 && wallCnt < K) {
+				visited[ny][nx][wallCnt + 1] = 1;
+				q.push({ { ny, nx }, { clen + 1, wallCnt + 1 } });
+			}
+		}
+	}
 }
 
 int main() {
-    cin >> N >> M >> K;
+	cin >> N >> M >> K;
 
-    string tmp;
-    for (int i = 0; i < N; i++) {
-        cin >> tmp;
-        for (int j = 0; j < M; j++) {
-            arr[i][j] = tmp[j] - '0';
-        }
-    }
-    
-    cout << bfs() << "\n";
+	string temp;
+	for (int i = 0; i < N; i++) {
+		cin >> temp;
+		for (int j = 0; j < M; j++) {
+			map[i][j] = temp[j] - '0';
+		}
+	}
+
+	bfs();
+	if (result == 987654321) cout << -1 << '\n';
+	else cout << result << '\n';
 }

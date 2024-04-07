@@ -1,5 +1,3 @@
-// 다리 만들기2
-// mst 코드 문제 인 것 같은데 10%에서 계속 틀려서 코드 수정 필요ㅠㅠ
 #include <iostream>
 #include <queue>
 #include <vector>
@@ -14,7 +12,6 @@ int y[] = { 0, 1, 0, -1 };
 vector<pair<int, pair<int, int>>> v;
 int parent[7] = { 0 };
 int result = 0;
-int checked[7] = { 0 };
 
 void init() {
 	for (int i = 0; i < N; i++) {
@@ -43,16 +40,13 @@ void move(int startY, int startX) {
 			if (ny < 0 || nx < 0 || ny >= N || nx >= M) break;
 
 			if (map[ny][nx] == startNum) break;
-			else if (map[ny][nx] == 0) {
-				cy = ny;
-				cx = nx;
-				moveCnt++;
-			}
-			else if (moveCnt >= 2 && map[ny][nx] != startNum) {
+			else if (map[ny][nx] != 0) {
 				v.push_back({ moveCnt, {startNum, map[ny][nx]} });
 				break;
 			}
-			else break;
+			cy = ny;
+			cx = nx;
+			moveCnt++;
 		}
 	}
 
@@ -127,17 +121,16 @@ int main() {
 		int b = find(v[i].second.second);
 		int price = v[i].first;
 
-		if (a != b) {
-			result += price;
-			if (a < b) parent[b] = a;
-			else parent[a] = b;
-			//checked[a] = 1;
-			//checked[b] = 1;
+		if (price >= 2) {
+			if (a != b) {
+				result += price;
+				if (a < b) parent[b] = a;
+				else parent[a] = b;
+			}
 		}
 	}
 
 	// 모든 섬들이 연결되었는지 확인
-
 	for (int i = 1; i <= idx - 1; i++) {
 		if (find(i) != 1) {
 			cout << -1 << '\n';

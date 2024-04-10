@@ -22,22 +22,26 @@ int main() {
 			}
 		}
 
-		priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-		pq.push({ 0,0 });
+		priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+		pq.push({ map[0][0], { 0,0 } });
 		dist[0][0] = map[0][0];
 
 		while (!pq.empty()) {
-			int cy = pq.top().first;
-			int cx = pq.top().second;
+			int cy = pq.top().second.first;
+			int cx = pq.top().second.second;
+			int cost = pq.top().first;
 			pq.pop();
 
 			for (int i = 0; i < 4; i++) {
 				int ny = cy + y[i];
 				int nx = cx + x[i];
+				int ncost = map[ny][nx];
+
 				if (ny < 0 || nx < 0 || ny >= N || nx >= N) continue;
-				if (dist[ny][nx] > dist[cy][cx] + map[ny][nx]) {
-					dist[ny][nx] = dist[cy][cx] + map[ny][nx];
-					pq.push({ ny, nx });
+				
+				if (dist[ny][nx] > dist[cy][cx] + ncost) {
+					dist[ny][nx] = dist[cy][cx] + ncost;
+					pq.push({ dist[ny][nx], {ny, nx} });
 				}
 			}
 		}

@@ -37,19 +37,19 @@ void check() {
 		}
 
 		int a = cur + 1;
-		if (a >= 0 && a <= 200000 && visited[a] == 0) {
+		if (a <= 200000 && visited[a] == 0) {
 			memory[a] = cur;
 			visited[a] = 1;
 			q.push({ a, cnt + 1 });
 		}
 		int b = cur - 1;
-		if (b >= 0 && b <= 200000 && visited[b] == 0) {
+		if (b >= 0 && visited[b] == 0) {
 			memory[b] = cur;
 			visited[b] = 1;
 			q.push({ b, cnt + 1 });
 		}
 		int c = cur * 2;
-		if (c >= 0 && c <= 200000 && visited[c] == 0) {
+		if (c <= 200000 && visited[c] == 0) {
 			memory[c] = cur;
 			visited[c] = 1;
 			q.push({ c, cnt + 1 });

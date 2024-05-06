@@ -27,7 +27,7 @@ void connect() {
 		int pb = find(b);
 
 		if (pa != pb) {
-			if (pa <= pb) parent[pb] = pa;
+			if (pa < pb) parent[pb] = pa;
 			else parent[pa] = pb;
 			total -= cost;
 		}

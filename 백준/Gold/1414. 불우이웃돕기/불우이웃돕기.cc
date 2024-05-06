@@ -8,8 +8,6 @@ int N;
 int map[MAX][MAX] = { 0 };
 vector<pair<int, pair<int, int>>> v;
 int parent[MAX] = { 0 };
-//int result = 0;
-//int selected[MAX] = { 0 };
 int total = 0;
 
 int find(int node) {
@@ -59,9 +57,8 @@ int main() {
 
 	connect();
 
-	int comp = find(1);
-	for (int i = 2; i <= N; i++) {
-		if (find(i) != comp) {
+	for (int i = 1; i <= N; i++) {
+		if (find(i) != 1) {
 			cout << -1 << '\n';
 			return 0;
 		}

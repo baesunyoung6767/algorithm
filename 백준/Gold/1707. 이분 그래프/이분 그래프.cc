@@ -30,7 +30,7 @@ void check(int node, int status_num) {
 			check(next, status_num * -1);
 		}
 		else {
-			if (status[next] == status_num) {
+			if (status[next] == status[node]) {
 				result = false;
 				return;
 			}

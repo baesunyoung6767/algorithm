@@ -19,6 +19,7 @@ public class Main {
     public static ArrayList<pos> teacherPos;
     public static int[] x = {0, 1, 0, -1};
     public static int[] y = {1, 0, -1, 0};
+    public static boolean result;
 
     public static void main(String[] args) throws Exception{
         N = Integer.parseInt(bf.readLine());
@@ -37,15 +38,15 @@ public class Main {
 
         putObj(0);
 
-        System.out.println("NO");
+        if(result) System.out.println("YES");
+        else System.out.println("NO");
     }
 
     public static void putObj(int cnt) {
         if(cnt == 3) {
             boolean isPos = checkStu();
             if(isPos) {
-                System.out.println("YES");
-                System.exit(0);
+                result = true;
             }
             return;
         }

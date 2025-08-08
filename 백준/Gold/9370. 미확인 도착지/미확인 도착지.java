@@ -45,7 +45,7 @@ public class Main {
 
             for(int i = 0; i<=n; i++) {
                 cityList[i] = new ArrayList<>();
-                dist[i] = 98765432;
+                dist[i] = Integer.MAX_VALUE;
             }
 
             String[] input2 = bf.readLine().split(" ");
@@ -79,7 +79,7 @@ public class Main {
             calcDist();
 
             for(int i = 0; i<t; i++) {
-                if(dist[target.get(i)] % 2 == 1) {
+                if(dist[target.get(i)] != Integer.MAX_VALUE && dist[target.get(i)] % 2 == 1) {
                     System.out.print(target.get(i) + " ");
                 }
             }

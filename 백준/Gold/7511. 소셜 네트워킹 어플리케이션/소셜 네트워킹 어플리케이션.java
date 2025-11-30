@@ -40,6 +40,7 @@ public class Main {
                     System.out.println("0");
                 }
             }
+
             System.out.println();
         }
     }
@@ -52,18 +53,18 @@ public class Main {
 
     public static int find(int n) {
         if(parent[n] == n) return parent[n];
-        return find(parent[n]);
+        return parent[n] = find(parent[n]);
     }
 
     public static void union(int a, int b) {
         int pa = find(a);
         int pb = find(b);
 
-        if(pa < pb) {
-            int temp = pa;
-            pa = pb;
-            pb = temp;
-        }
+        // if(pa < pb) {
+        //     int temp = pa;
+        //     pa = pb;
+        //     pb = temp;
+        // }
 
         parent[pa] = pb;
     }

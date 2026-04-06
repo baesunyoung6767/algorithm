@@ -16,38 +16,24 @@ public class Main {
             String[] input = bf.readLine().split(" ");
             int T = Integer.parseInt(input[0]);
             Map<Long, Integer> m = new HashMap<>();
+            int maxNum = -1;
+            long maxIdx = -1;
 
             for(int j = 1; j<=T; j++) {
                 long num = Long.parseLong(input[j]);
                 int data = m.getOrDefault(num, 0);
                 m.put(num, data + 1);
-            }
 
-            List<Long> KeySet = new ArrayList<>(m.keySet());
-            KeySet.sort((o1, o2) -> m.get(o2).compareTo(m.get(o1)));
-
-            boolean still = false;
-            int maxData = -1;
-            long maxKey = -1;
-
-            for(Long key : KeySet) {
-                int curData = m.get(key);
-                
-                if(curData == maxData) {
-                    still = true;
-                    break;
-                }
-
-                if(curData > T / 2 && curData > maxData) {
-                    maxData = curData;
-                    maxKey = key;
+                if(m.get(num) > maxNum) {
+                    maxNum = m.get(num);
+                    maxIdx = num;
                 }
             }
 
-            if(still || maxData == -1) {
-                System.out.println("SYJKGW");
+            if(maxNum > T / 2) {
+                System.out.println(maxIdx);
             } else {
-                System.out.println(maxKey);
+                System.out.println("SYJKGW");
             }
         }
     }
